@@ -1,0 +1,15 @@
+ 1. To get by only month-date
+ select to_char(birthdate, 'MM-dd')from person_details
+
+ 2. To get using birthdate
+ "select * from person_details pd where pd.birthdate=?1"
+
+ 3. select * from person_details where extract(day from birthdate)=16 and extract(month from birthdate)=02;
+
+ 4. Controller
+ @GetMapping(path = "/persons/birthdate")
+     public ResponseEntity<Person> findByDate(@RequestParam @DateTimeFormat(pattern= "yyyy-MM-dd") Date birthdate) {
+         Person person = personService.findByDate(birthdate);
+         return new ResponseEntity<>(person, HttpStatus.OK);
+
+     }
